@@ -1,0 +1,38 @@
+doctype html
+html(ng-app='ClassApp')
+  head
+    title CLMS Report Classes
+    meta(name='viewport', content='width=device-width, initial-scale=0')
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.css')
+  body(ng-controller='ClassListController')
+    block content
+      .container
+      
+        nav.navbar.navbar-default
+            div.container-fluid
+              div.navbar-header
+                a.navbar-brand(href='/')
+                  span.glyphicon.glyphicon-flash(aria-hidden='true')
+                span.navbar-brand CLMS Report Wizard
+              p.navbar-text.navbar-right
+                a.navbar-link(href='/logout', style="margin-right:15px") Log Out  
+                
+        uib-accordion(close-others='oneAtATime')
+          uib-accordion-group(heading="{{Course['course-name']}}", ng-repeat='Course in Courses') 
+            img(ng-src="{{Course['course-icon'].replace('http:', 'https:')}}").col-xs-2
+            div(ng-repeat='CourseClass in Course.classes').col-xs-6
+              a(ng-href='/reportwizard/{{CourseClass.id}}') {{CourseClass['class-name']}}
+                
+                
+    script(src='angular/angular.js')
+    script(src='angular-animate/angular-animate.js')
+    script(src='jquery/dist/jquery.js')
+    script(type='text/javascript').
+      var ClassesObject =!{JSON.stringify(ClassesObject)}
+    script(type='text/javascript').
+      var CoursesObject =!{JSON.stringify(CoursesObject)}
+    script(src='js/boot.js')
+    script(src='js/classApp.js')
+    script(src='chart.js/dist/Chart.min.js')
+    script(src='angular-chart.js/dist/angular-chart.min.js')
+    

@@ -1,0 +1,38 @@
+doctype html
+html(ng-app='WizardApp')
+  head
+    title CLMS Report Wizard
+    meta(name='viewport', content='width=device-width, initial-scale=0')
+    link(rel='stylesheet', href='../bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='../css/app.css')
+  body(ng-controller='WizardController')
+    block content
+      .container
+        nav.navbar.navbar-default
+          div.container-fluid
+            div.navbar-header
+              a.navbar-brand(href='/')
+                span.glyphicon.glyphicon-flash(aria-hidden='true')
+              span.navbar-brand CLMS Report Wizard
+            p.navbar-text.navbar-right
+              a.navbar-link(href='/logout', style="margin-right:15px") Log Out  
+        
+        div(style="margin-bottom:20px;") Choose a user 
+          select(ng-model='Users')
+            option(ng-repeat='user in Users', value='{{user.id}}') {{user.id}}    
+
+        
+    script(src='../angular/angular.js')
+    script(src='../jquery/dist/jquery.js')
+    script(src='../bootstrap/dist/js/bootstrap.js')
+    script(type='text/javascript').
+      var UsersObject =!{JSON.stringify(UsersObject)}
+    script(type='text/javascript').
+      var TabsObject =!{JSON.stringify(TabsObject)}
+    script(type='text/javascript').
+      var UnitsObject =!{JSON.stringify(UnitsObject)}
+    script(type='text/javascript').
+      var LessonsObject =!{JSON.stringify(LessonsObject)}
+    script(type='text/javascript').
+      var ContentsObject =!{JSON.stringify(ContentsObject)}
+    script(src='../js/wizardApp.js')

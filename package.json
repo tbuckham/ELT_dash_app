@@ -1,0 +1,17 @@
+{
+  "name": "CLMS-Reporting",
+  "version": "0.0.0",
+  "description": "A reporting app based on the CLMS API.",
+  "main": "server.js",
+  "repository": "",
+  "author": "Oliver McPhee <o.mcphee@gmail.com>",
+  "dependencies": {
+    "async": "^0.2.10",
+    "bower": "^1.7.9",
+    "cookie-parser": "^1.4.3",
+    "express": "~3.2.4",
+    "express-session": "^1.14.0",
+    "pug": "^2.0.0-beta4",
+    "request": "^2.74.0"
+  }
+}

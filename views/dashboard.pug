@@ -1,0 +1,310 @@
+doctype html
+html(ng-app='dashboard')
+  head
+    title CLMS Dashboard
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='chartist/dist/chartist.min.css')
+
+  style.
+   /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+   .row.content {height: 550px}
+   /* Set gray background color and 100% height */
+   .sidenav {
+    background-color: #f1f1f1;
+    height: 100%;
+   }
+   .well {
+       background-color: #f1f1f1;
+   }
+   img { display:block; height: auto; max-width: 100%; }
+   /* On small screens, set height to 'auto' for the grid */
+   @media screen and (max-width: 767px) {
+    .row.content {height: auto;}
+   }
+   .body { 
+    padding-top: 70px; 
+   }
+   
+   .ct-line.ct-threshold-above, .ct-point.ct-threshold-above, .ct-bar.ct-threshold-above {
+    stroke: #59922b;
+     }
+
+   .ct-line.ct-threshold-below, .ct-point.ct-threshold-below, .ct-bar.ct-threshold-below {
+    stroke: #f05b4f;
+   }
+
+   .ct-area.ct-threshold-above {
+    fill: #59922b;
+   }
+
+   .ct-area.ct-threshold-below {
+    fill: #f05b4f;
+    }
+   .ct-label {
+    font-size: 0.8em;
+   }
+   .ct-axis-title {
+    font-size: 0.9em;
+   }
+ 
+   .ct-bar {
+    stroke-width: 20px
+   }
+
+    
+   
+
+  body
+    nav.navbar.navbar-inverse 
+     .container-fluid
+      .navbar-header
+       button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNav')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+       a.navbar-brand(href='#') 
+        img.img-responsive(src='img/cup-transparent-logo.png')
+       
+      div#myNav.navbar-collapse.collapse
+       ul.nav.navbar-nav
+        li.active
+         a(href='#') Student
+          | 
+          span.glyphicon.glyphicon-user
+        li
+         a(href='#') Teacher 
+          span.glyphicon.glyphicon-education
+        li
+         a(href='sandboxchart') Sandbox 
+          span.glyphicon.glyphicon-th-list
+       p.navbar-text.navbar-right
+         a.navbar-link(href='/logout', style="margin-right:15px") Log Out 
+
+    .container-fluid(ng-controller='contentDataController')
+      .row.content
+        .col-sm-12
+         .row
+          .col-sm-2.col-xs-12
+           .well
+            p Students view of own data
+            a.thumbnail
+             img(src='img/user-icon.png')
+            p Progress
+            div.progress(ng-controller='scoreBasedProgressController')
+             div.progress-bar(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: {{progress}}em;")
+              span {{progress}}%
+            div % of items completed > 50% 
+
+
+          .col-sm-5.col-xs-12(ng-controller='currentProgress')
+             .panel.panel-tabs.panel-info
+              .panel-heading
+               ul.nav.nav-tabs
+                li.active
+                 a.success(href='#progressSnapshot', data-toggle='tab') Progress Snapshot 
+                li
+                 a(href='#currentScore', data-toggle='tab') Current Score vs. Class Score 
+                  
+
+              .panel-body
+               .tab-content
+                #progressSnapshot.tab-pane.fade.in.active
+                 .well
+                  .row
+                   .col-sm-9
+                    div.ct-chartProgress.ct-golden-section
+                   .col-sm-3 
+                       div
+                        h5 Skills mastered:     
+                         label.label-success 
+                          span(style= 'color:white') {{highContent.length}}
+
+                       h5 Skills to complete:
+                        label.label-warning 
+                         span(style= 'color:white') {{notStarted.length}}
+
+                       h5 Skills to improve: 
+                        label.label-danger
+                         span(style= 'color:white') {{lowContent.length}}   
+                
+               
+                #currentScore.tab-pane.fade
+                 .well
+                  div(fusioncharts='', width='100%', height='100%', type='angulargauge', datasource='{{myDataSource}}')
+
+
+
+
+          .col-sm-5.col-xs-12
+           .well(ng-controller='currentSkillController')
+            h4 Current Goal
+            p {{currentSkill['content-name']}}
+            row
+             .col-sm-6
+              p
+              p Current Best Score:
+             .col-sm-6
+              p
+               div.progress
+                div.progress-bar(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: {{currentSkill['calc-percentage-score']}}%;")
+                 span {{currentSkill['calc-percentage-score']}}%
+            row
+             .col-sm-6
+              p Last Score
+             .col-sm-6
+              div.progress
+               div.progress-bar(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: {{currentSkill.attempts['1']['score']}}%;")
+                span {{currentSkill['calc-percentage-score']}}%
+            row
+             .col-xs-6
+              p Attempts
+             .col-xs-6
+              p 3
+              
+            row
+             .col-xs-6
+              p Time spent
+             .col-xs-6
+              p {{currentSkill['total-time']}}  
+              
+            row
+             .col-xs-6
+              p Last attempt:
+             .col-xs-6
+             p {{currentSkill.attempts['1']['last-access'] * 1000 | date:'medium'}}
+
+            row
+              .col-xs-6
+               p View other goals
+              .col-xs-6
+               p
+                select(ng-model='selectedGoal', ng-options="x as x['content-name'] for x in contentData", style="width: 100%")
+            button(type='button').btn.btn-success Update
+
+         .row
+           .col-sm-7.col-xs-12(ng-controller='student_unit_avgscore_chart')
+            .panel.panel-tabs.panel-info
+             .panel-heading
+              ul.nav.nav-tabs
+               li.active
+                a(href='#unitProgress', data-toggle='tab') Performance by Unit/Skill type 
+
+
+             .panel-body
+              .tab-content
+                #unitProgress.tab-pane.fade.in.active
+                 .row
+                  .col-sm-6
+                   div.ct-chart.ct-perfect-fifth
+                  .col-sm-6
+                   div.skills-chart.ct-perfect-fifth
+                
+                    //ct-font-size
+
+           .col-sm-5.col-xs-12
+            .panel.panel-tabs.panel-info
+             .panel-heading
+              ul.nav.nav-tabs
+               li.active
+                a.success(href='#bestContent', data-toggle='tab') Skills mastered 
+                 span.label.label-success {{highContent.length}}
+               li
+                a(href='#toImproveContent', data-toggle='tab') Skills to improve 
+                 span.label.label-danger {{lowContent.length}}
+               li
+                a(href='#recentContent', data-toggle='tab') Recent content 
+                 span.label.label-default {{mostRecent.length}}  
+
+               li
+                a(href='#skillsNotStarted', data-toggle='tab') Skills not started 
+                 span.label.label-warning {{notStarted.length}} 
+
+             .panel-body
+              .tab-content
+               #bestContent.tab-pane.fade.in.active
+
+                 .well
+                  ul.list.list-group
+                   li.media.list(ng-repeat="title in highContent") 
+                    div.media-left
+                     span.glyphicon.glyphicon-star
+                    div.media-body
+                     | {{title}}
+                
+               
+               #toImproveContent.tab-pane.fade
+                 .well
+                  ul.list-unstyled
+                    li.media(ng-repeat="title in lowContent") 
+                     div.media-left
+                      span.glyphicon.glyphicon-repeat
+                     div.media-body
+                      | {{title}}             
+                
+               #recentContent.tab-pane.fade 
+                  .well
+                   ul.media-list
+                    li.media(ng-repeat="item in mostRecent | orderBy:'item.time' | limitTo: 5") 
+                     div.media-left
+                      span.glyphicon.glyphicon-time
+                     div.media-body
+                      | {{item.name}}         
+         
+               #skillsNotStarted.tab-pane.fade(ng-controller='contentDataController')
+                  .well
+                   ul.media-list
+                     li.media(ng-repeat="title in notStarted | limitTo: pageSize : increment") 
+                      div.media-left
+                       span.glyphicon.glyphicon-lock
+                      div.media-body
+                       | {{title}}
+                   button.btn.btn-md.btn-primary(ng-disabled='currentPage == 0', ng-click='currentPage=currentPage-1; increment = increment-6')
+                    | Previous  
+                   |  {{currentPage}} 
+                   button.btn.btn-md.btn-primary(ng-click="currentPage=currentPage+1; increment = increment+6", ng-disabled='increment == notStarted.length')
+                    | Next
+            
+
+        // .row(ng-controller='scoreBasedProgressController')
+            .col-sm-4
+              .well
+                h4 Stuff
+                p ...
+            .col-sm-4
+              .well
+                h4 More stuff
+                p ....
+            .col-sm-4
+              .well
+                h4 Stuff.
+                p {{toComplete.length}}
+
+
+   
+            
+  script(src='angular/angular.js')
+  script(src='angular-animate/angular-animate.js')
+  script(src='jquery/dist/jquery.js')
+  script(src='bootstrap/dist/js/bootstrap.min.js')
+  script(src='js/boot.js') 
+  script(type='text/javascript').
+   var GradebookObject =!{JSON.stringify(GradebookObject)}
+  script(type='text/javascript'). 
+   var ContentObject =!{JSON.stringify(ContentObject)}
+  script(type='text/javascript'). 
+   var UnitObject =!{JSON.stringify(UnitObject)}
+  script(src='fusioncharts/fusioncharts.js')
+  script(src='chartist/dist/chartist.min.js')
+  script(src='chartist-plugin-axistitle/dist/chartist-plugin-axistitle.min.js')
+  script(src='chartist-plugin-threshold/dist/chartist-plugin-threshold.min.js')
+  script(src='chartist-plugin-fill-donut/dist/chartist-plugin-fill-donut.min.js')
+  script(src='chartist-plugin-barlabels/dist/chartist-plugin-barlabels.min.js')    
+  script(src='angular-fusioncharts-master/dist/angular-fusioncharts.min.js')
+  script(src='js/dashboard.js')
+  script(src='js/controllers.js')
+  script(src='js/services.js')
+  
+  
+  //script(src='chart.js/dist/Chart.min.js')
+  //script(src='angular-chart.js/dist/angular-chart.min.js')

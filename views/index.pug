@@ -1,0 +1,40 @@
+doctype html
+html(lang='en')
+  head
+    title CLMS Report Wizard
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.css')
+  body
+    .container
+      .navbar.navbar-fixed-top.navbar-inverse
+        .navbar-inner
+          .pull-right
+            a CLMS Reporting App
+      .page-header
+        h1 CLMS Report Wizard
+      .row
+        .span3
+          ul.nav.nav-list.well
+            li.nav-header Local Users
+        .span9
+          table.table.table-striped.table-bordered
+            thead
+              tr
+                th.span2 Name
+                th.span7 Text
+            tbody
+              tr
+                td.span2
+                td.span7
+          .row.controls
+            form
+              .span2
+                input.input-block-level(type='text', placeholder='Your Name')
+              .input-append.span7
+                input.span6(type='text', placeholder='Message')
+                |  
+                input.span1.btn.btn-primary(type='submit', value='Send')
+    
+    script(src='/jquery/dist/jquery.js')
+    script(src='/bootstrap/dist/js/bootstrap.js')
+    script(src='/angular/angular.js')

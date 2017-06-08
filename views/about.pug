@@ -1,0 +1,29 @@
+doctype html
+html(ng-app='aboutApp')
+  head
+    title CLMS Report Classes
+    meta(name='viewport', content='width=device-width, initial-scale=0')
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.css')
+  body(ng-controller='aboutController')
+    block content
+      .container
+      
+        nav.navbar.navbar-default
+            div.container-fluid
+              div.navbar-header
+                a.navbar-brand(href='/')
+                  span.glyphicon.glyphicon-flash(aria-hidden='true')
+                span.navbar-brand CLMS Report Wizard
+              p.navbar-text.navbar-right
+                a.navbar-link(href='/logout', style="margin-right:15px") Log Out  
+                
+        div Hello World
+        div(ng-repeat='x in aboutData').col-xs-6 {{x}}
+            
+    script(src='angular/angular.js')
+    script(src='angular-animate/angular-animate.js')
+    script(src='jquery/dist/jquery.js')
+    script(src='js/about.js')
+    
+    
+      

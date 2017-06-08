@@ -1,0 +1,146 @@
+doctype html
+html(ng-app='app')
+  head
+    title CLMS Report Classes
+    meta(name='viewport', content='width=device-width, initial-scale=0')
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='chartist/dist/chartist.min.css')
+ 
+  style.
+   /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+   .row.content {height: 550px}
+   /* Set gray background color and 100% height */
+   .sidenav {
+    background-color: #f1f1f1;
+    height: 100%;
+   }
+   .well {
+       background-color: #f1f1f1;
+   }
+   img { display:block; height: auto; max-width: 100%; }
+   /* On small screens, set height to 'auto' for the grid */
+   @media screen and (max-width: 767px) {
+    .row.content {height: auto;}
+   }
+   
+
+  body
+    nav.navbar.navbar-inverse
+     .container-fluid
+      .navbar-header
+       button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNav')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+       a.navbar-brand(href='#') 
+        img.img-responsive(src='img/cup-transparent-logo.png')
+       
+      div#myNav.navbar-collapse.collapse
+       ul.nav.navbar-nav
+        li
+         a(href='dashboard') Student
+          | 
+          span.glyphicon.glyphicon-user
+        li.active
+         a(href='#') Teacher 
+          span.glyphicon.glyphicon-education
+        li
+         a(href='sandboxchart') Sandbox 
+          span.glyphicon.glyphicon-th-list
+       p.navbar-text.navbar-right
+         a.navbar-link(href='/logout', style="margin-right:15px") Log Out  
+
+    .container-fluid
+      .row.content
+        .col-sm-12
+         .row
+          .col-sm-2.col-xs-4
+           .well
+            a.thumbnail
+             img(src='img/user-icon.png')
+            p Teachers view of class/student data 
+          .col-sm-4.col-xs-8
+           .well
+            h4 ...
+             div.panel-body(ng-controller='chart3')
+              div.ct-chart.ct-square      
+          .col-sm-6.col-xs-12
+           .well
+             h4 ...
+              div.panel-body(ng-controller='testFusion') 
+               div(fusioncharts='', width='600', height='400', type='column2d', datasource='{{myDataSource}}')
+
+                //div(fusioncharts='', width='100%', height='225', type='angulargauge', datasource='{{myDataSource}}')
+             h3.panel-title Single student unit scores - Chart.js
+              div.panel-body(ng-controller='chart4') 
+               canvas#line.chart.chart-line(chart-data='data', chart-labels='labels', chart-options='options', chart-dataset-override='datasetOverride', chart-click='onClick')  
+    
+
+         .row
+            .col-sm-4
+
+            .col-sm-4
+              
+            .col-sm-4
+
+        
+
+                  
+         .row
+            .col-sm-8
+              .well
+               div
+               
+            .col-sm-4
+              div.panel
+
+
+         .row
+            .col-sm-4
+              .well
+                h4 Stuff
+                p ...
+            .col-sm-4
+              .well
+                h4 More stuff
+                p ...
+            .col-sm-4
+              .well
+                h4 Stuff
+                p 
+
+
+
+
+              //p.navbar-text.navbar-right
+              //  a.navbar-link(href='/logout', style="margin-right:15px") Log Out  
+                
+
+
+
+           
+
+
+
+
+            
+    script(src='angular/angular.js')
+    script(src='angular-animate/angular-animate.js')
+    script(src='jquery/dist/jquery.js')
+    script(src='js/boot.js')
+    script(src='chart.js/dist/Chart.min.js')
+    script(src='angular-chart.js/dist/angular-chart.min.js')
+    script(type='text/javascript').
+     var ChartObject =!{JSON.stringify(ChartObject)}
+    script(type='text/javascript'). 
+     var UnitObject =!{JSON.stringify(UnitObject)}
+    script(src='fusioncharts/fusioncharts.js')
+    
+    script(src='chartist/dist/chartist.min.js')
+    script(src='chartist-plugin-axistitle/dist/chartist-plugin-axistitle.min.js')
+    script(src='js/studentdash.js')
+    script(src='angular-fusioncharts-master/dist/angular-fusioncharts.min.js')
+     
+  //   script(type='text/javascript'). 
+  //   var BatchObject =!{JSON.stringify(BatchObject)}
+      

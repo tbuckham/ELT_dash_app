@@ -1,0 +1,173 @@
+doctype html
+html(ng-app='app')
+  head
+    title CLMS Report Classes
+    meta(name='viewport', content='width=device-width, initial-scale=0')
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='chartist/dist/chartist.min.css')
+ 
+  style.
+   /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+   .row.content {height: 550px}
+   /* Set gray background color and 100% height */
+   .sidenav {
+    background-color: #f1f1f1;
+    height: 100%;
+   }
+   .well {
+       background-color: #f1f1f1;
+   }
+   img { display:block; height: auto; max-width: 100%; }
+   /* On small screens, set height to 'auto' for the grid */
+   @media screen and (max-width: 767px) {
+    .row.content {height: auto;}
+   }
+   
+   .ct-line.ct-threshold-above, .ct-point.ct-threshold-above, .ct-bar.ct-threshold-above {
+    stroke: #59922b;
+     }
+
+   .ct-line.ct-threshold-below, .ct-point.ct-threshold-below, .ct-bar.ct-threshold-below {
+    stroke: #f05b4f;
+   }
+
+   .ct-area.ct-threshold-above {
+    fill: #59922b;
+   }
+
+   .ct-area.ct-threshold-below {
+    fill: #f05b4f;
+    }
+   
+
+  body
+    nav.navbar.navbar-inverse
+     .container-fluid(ng-controller='bulletCharts')
+      .navbar-header
+       button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNav')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+       a.navbar-brand(href='#') 
+        img.img-responsive(src='img/cup-transparent-logo.png')
+       
+      div#myNav.navbar-collapse.collapse
+       ul.nav.navbar-nav
+        li
+         a(href='dashboard') Student
+          | 
+          span.glyphicon.glyphicon-user
+        li
+         a(href='#') Teacher 
+          span.glyphicon.glyphicon-education
+        li.active
+         a(href='#') Sandbox 
+          span.glyphicon.glyphicon-th-list
+       p.navbar-text.navbar-right
+         a.navbar-link(href='/logout', style="margin-right:15px") Log Out  
+
+    .container-fluid.well(ng-controller='bulletCharts')
+     .row
+      #classViews.col-sm-3.col-xs-12(ng-controller='classProgressSummary')
+       h4 Class Summary: 
+       p {{className}}
+       div(fusioncharts='', width='100%', height='300', type='vled', datasource='{{classProgressData}}')
+      .col-sm-9.col-xs-12
+       .row
+        .col-sm-10
+         .form-group
+          .row
+           .col-sm-3
+            label(for='courseSelect') Select a class:
+           .col-sm-9
+            select#courseSelect.form-control(ng-model='className', ng-change='updateClassData(className)')
+             option Touchstone Level 1 - UVM Spring 16
+             option Touchstone Level 2A - UVM Autumn 16
+             option Touchstone Level 2B - UVM Spring 17
+             option Viewpoint Level 1 - UVM Spring 16
+             //option Viewpoint Level 2 - UVM Autumn 16            
+       //.col-sm-2 
+         //  a.btn.btn-primary(ng-click='updateClassData()') Update
+        
+       .panel.panel-tabs.panel-info
+        .panel-heading
+         ul.nav.nav-tabs
+          li.active
+           a(href='#separateSkillsView', data-toggle='tab') Skills progress (summary)
+          li
+           a(href='#progressView1', data-toggle='tab') Skills performance by Unit
+          li
+           a(href='#thresholdChart', data-toggle='tab') Performance over time
+            
+        .panel-body
+         .tab-content
+
+          div#separateSkillsView.tab-pane.fade.in.active
+            .col-sm-3
+             div(fusioncharts='', width='100%', height='200', type='vbullet', datasource='{{listeningData}}')
+            .col-sm-3
+             div(fusioncharts='', width='100%', height='200', type='vbullet', datasource='{{readingData}}')
+            .col-sm-3
+             div(fusioncharts='', width='100%', height='200', type='vbullet', datasource='{{writingData}}')
+            .col-sm-3
+             div(fusioncharts='', width='100%', height='200', type='vbullet', datasource='{{speakingData}}')
+ 
+   
+          div#progressView1.tab-pane(ng-controller='skillsController1')
+           div#chart-container
+          
+          div#thresholdChart.tab-pane.fade.in(ng-controller='thresholdChart')
+           
+
+
+     .row(ng-controller="studentCharts")
+      .col-sm-3
+       .well
+        h4 Student performance
+        a.thumbnail
+         img(src='img/user-icon.png')
+        p Select a student 
+        select.form-control(ng-model='currentStudent', ng-change='updateStudent(currentStudent)')
+         option Jose Luis
+         option Brendan Wightman
+         option Gosia Adamcyzk
+         option Christoper Burbage
+      
+      .col-sm-5
+       .well
+        div(fusioncharts='', width='100%', height='300', type='mscombi2d', datasource='{{individualStudentSkillsSummary}}')
+      
+      .col-sm-4
+       .well
+        div(fusioncharts='', width='100%', height='300', type='pie2d', datasource='{{studentActivity}}')
+           
+         
+
+
+    //script(src='chart.js/dist/Chart.min.js')
+    //script(src='angular-chart.js/dist/angular-chart.min.js')
+    //script(type='text/javascript').
+    // var ChartObject =!{JSON.stringify(ChartObject)}
+    //script(type='text/javascript'). 
+    // var UnitObject =!{JSON.stringify(UnitObject)}
+    //script(src='fusioncharts/fusioncharts.js')
+    //script(src='angular-fusioncharts/dist/angular-fusioncharts.min.js')
+
+    script(src='fusioncharts/fusioncharts.js')
+    script(src='angular/angular.js')
+    script(src='angular-animate/angular-animate.js')
+    script(src='jquery/dist/jquery.js')
+    script(src='js/boot.js')
+    script(src='bootstrap/dist/js/bootstrap.min.js')
+    script(type='text/javascript').
+      var ChartObject =!{JSON.stringify(ChartObject)}
+    script(src='chartist/dist/chartist.min.js')
+    script(src='chartist-plugin-axistitle/dist/chartist-plugin-axistitle.min.js')
+    script(src='chartist-plugin-threshold/dist/chartist-plugin-threshold.min.js')
+    script(src='js/sandboxchart.js') 
+    script(src='angular-fusioncharts-master/dist/angular-fusioncharts.min.js')
+
+  
+
+
+    

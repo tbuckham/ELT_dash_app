@@ -1,0 +1,37 @@
+{
+  "name": "CLMS Dashboard App",
+  "description": "A dashboard app using the CLMS API and various libraries",
+  "main": "server.js",
+  "authors": [
+    "Tom Buckham tombuckham@gmail.com"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "data",
+    "chartist",
+    "fusioncharts",
+    "dashboard"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "^1.5.8",
+    "angular-chart.js": "^1.1.1",
+    "angular": "angularjs#^1.5.8",
+    "angular-touch": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "chartist-plugin-axistitle": "^0.1.0",
+    "chartist-plugin-threshold": "^0.0.2",
+    "fusioncharts": "^3.12.0",
+    "latest": "https://github.com/fusioncharts/angular-fusioncharts/releases/latest",
+    "chartist-plugin-fill-donut": "^0.1.4",
+    "chartist-plugin-barlabels": "*"
+  }
+}

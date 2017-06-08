@@ -1,0 +1,129 @@
+doctype html
+html(ng-app='gradebookApp')
+  head
+    title CLMS Report Classes
+    meta(name='viewport', content='width=device-width, initial-scale=0')
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.css')
+  body(ng-controller='gradebookAppController')
+    block content
+      .container
+      
+        nav.navbar.navbar-default
+            div.container-fluid
+              div.navbar-header
+                a.navbar-brand(href='/')
+                  span.glyphicon.glyphicon-flash(aria-hidden='true')
+                span.navbar-brand CLMS Report Wizard
+              p.navbar-text.navbar-right
+                a.navbar-link(href='/logout', style="margin-right:15px") Log Out  
+                
+                           //long list of all high achieving students sorted into performance panels - using media list, generic icon
+        div.container
+          div.row.row-content
+           div.panel-defaul.panel-success.col-xs-12.col-md-4
+            div.panel-heading 
+             h3.panel-title High achieving students
+            div.panel-body 
+             ul.media-list
+              li.media(ng-repeat="gb in Gradebooks | filter: greaterThan('average-score', 75)")
+               div.media-left.media-middle
+                 img.media-object.img-thumbnail(src='img/graduating-student.png') 
+               div.media-body
+                h4.media-heading Student: {{ gb["user-id"] }}
+                p Average score: {{ gb["average-score"] }}
+                p Progress: {{gb.progress}}
+ 
+ 
+           
+           div.panel-defaul.panel-warning.col-xs-12.col-md-4
+            div.panel-heading 
+             h3.panel-title Students passing
+            div.panel-body 
+             ul.media-list
+              li.media(ng-repeat="gb in Gradebooks | filter: passing('average-score', 40, 70)")
+               div.media-left.media-middle
+                 img.media-object.img-thumbnail(src='img/studying-student-icon.png') 
+               div.media-body
+                h4.media-heading Student: {{ gb["user-id"] }}
+                p Average score: {{ gb["average-score"] }}
+                p Progress: {{gb.progress}}
+ 
+           
+           div.panel-defaul.panel-danger.col-xs-12.col-md-4
+            div.panel-heading 
+             h3.panel-title Students at risk/failing
+            div.panel-body 
+             ul.media-list
+              li.media(ng-repeat="gb in Gradebooks | filter: lessThan('average-score', 40)")
+               div.media-left.media-middle
+                 img.media-object.img-thumbnail(src='img/warning-student.png') 
+               div.media-body
+                h4.media-heading Student: {{ gb["user-id"] }}
+                p Average score: {{ gb["average-score"] }}
+                p Progress: {{gb.progress}}
+ 
+ 
+                        //original sorted panels for high/medium/low scores
+ 
+          div.row.row-content
+            
+           div.panel-defaul.panel-success.col-xs-12.col-md-4
+            div.panel-heading 
+             h3.panel-title High achieving students
+            div.panel-body 
+             // div(ng-repeat='gb in Gradebooks' ng-if='gb["average-score"] > 60') {{ gb["class-name"]}} + {{ gb["average-score"] }}
+             
+             div(ng-repeat="gb in Gradebooks | filter: greaterThan('average-score', 75)") User: {{ gb["user-id"] }} , Avg. score: {{ gb["average-score"] }} 
+               span.glyphicon.glyphicon-education 
+               
+           
+    
+           div.panel-default.panel-warning.col-xs-12.col-md-4
+            div.panel-heading 
+              h3.panel-title Students passing
+            div.panel-body 
+             div(ng-repeat="gb in Gradebooks | filter: passing('average-score', 40, 70)") User: {{ gb["user-id"] }} , Avg. score: {{ gb["average-score"] }}
+ 
+  
+           div.panel-default.panel-danger.col-xs-12.col-md-4
+            div.panel-heading 
+             h3.panel-title Students failing / at risk
+            div.panel-body 
+             div(ng-repeat="gb in Gradebooks | filter: lessThan('average-score', 40)") User: {{ gb["user-id"] }} , Avg. score: {{ gb["average-score"] }} 
+    
+ 
+ 
+                   //long list of all high achieving students using media list, generic icon
+          div.row.row-content
+           div.panel-default.col-xs-12
+             div.panel-heading 
+              h3.panel-title List of all high scoring students with basic styling
+             div.panel-body 
+              ul.media-list
+               li.media(ng-repeat="gb in Gradebooks | filter: greaterThan('average-score', 75)")
+                div.media-left.media-middle
+                  img.media-object.img-thumbnail(src='img/generic-user-icon.png') 
+                div.media-body
+                 h4.media-heading Student: 
+                 p {{ gb["user-id"] }}
+                 p Average score: {{ gb["average-score"] }}
+ 
+  
+              //long list of all students and their scores (no sorting/filters) with just a panel header
+          div.row.row-content
+            div.panel-default.col-xs-12
+             div.panel-heading 
+              h3.panel-title List of all students with no sorting/formating
+             div.panel-body 
+              div(ng-repeat="gb in Gradebooks") User: {{ gb["user-id"] }} , Avg. score: {{ gb["average-score"] }} 
+ 
+             
+    script(src='angular/angular.js')
+    script(src='angular-animate/angular-animate.js')
+    script(src='jquery/dist/jquery.js')
+    script(src='js/sandbox.js')
+    script(src='js/boot.js')
+    script(src='js/gradebooks.js')
+    script(type='text/javascript').
+      var GradebookObject =!{JSON.stringify(GradebookObject)}
+          
