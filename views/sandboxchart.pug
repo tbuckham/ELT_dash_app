@@ -2,18 +2,12 @@ doctype html
 html(ng-app='app')
   head
     title CLMS Report Classes
-    meta(name='viewport', content='width=device-width, initial-scale=0')
-    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.css')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='chartist/dist/chartist.min.css')
  
   style.
-   /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-   .row.content {height: 550px}
-   /* Set gray background color and 100% height */
-   .sidenav {
-    background-color: #f1f1f1;
-    height: 100%;
-   }
+
    .well {
        background-color: #f1f1f1;
    }
@@ -68,11 +62,11 @@ html(ng-app='app')
 
     .container-fluid.well(ng-controller='bulletCharts')
      .row
-      #classViews.col-sm-3.col-xs-12(ng-controller='classProgressSummary')
+      #classViews.col-md-3.col-xs-12(ng-controller='classProgressSummary')
        h4 Class Summary: 
        p {{className}}
        div(fusioncharts='', width='100%', height='300', type='vled', datasource='{{classProgressData}}')
-      .col-sm-9.col-xs-12
+      .col-md-9.col-xs-12
        .row
         .col-sm-10
          .form-group
@@ -120,7 +114,7 @@ html(ng-app='app')
            
 
 
-     .row(ng-controller="studentCharts")
+     #studentViews.row(ng-controller="studentCharts")
       .col-sm-3
        .well
         h4 Student performance
@@ -141,7 +135,41 @@ html(ng-app='app')
        .well
         div(fusioncharts='', width='100%', height='300', type='pie2d', datasource='{{studentActivity}}')
            
-         
+     .row(ng-controller="contentCharts")
+      .col-sm-3
+       .well
+        h4 Content Performance
+        p
+         img(src='img/TSL2Logo.png')
+        select.form-control(ng-model='currentUnit')
+         option Unit 1
+         option Unit 2
+         option Unit 3
+         option Unit 4 
+        p
+        select.form-control(ng-model='currentLesson')
+         option.selected Lesson A
+         option Lesson B
+         option Lesson C
+         option Lesson D 
+        
+      .col-sm-5
+      
+       .panel.panel-tabs.panel-info
+        .panel-heading
+         ul.nav.nav-tabs
+          li.active
+           a(href='#studentContentThresholds', data-toggle='tab') Thresholds
+          li
+           a(href='#', data-toggle='tab') Scores
+
+            
+        .panel-body
+         .tab-content
+          div#studentContentThresholds(fusioncharts='', width='100%', height='300', type='errorbar2d', datasource='{{contentItemsData}}')     
+
+      .col-sm-4
+       div(fusioncharts='', width='100%', height='300', type='pie2d', datasource='{{studentTrafficLightData}}')     
 
 
     //script(src='chart.js/dist/Chart.min.js')

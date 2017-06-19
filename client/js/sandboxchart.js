@@ -471,7 +471,7 @@ $scope.individualStudentSkillsSummary =
 
 {
     "chart": {
-        "caption": "Individual Student Performance",
+        "caption": "Individual Student Performance by Skill",
         "bgcolor": "FFFFFF",
         "plotgradientcolor": "",
         "showalternatehgridcolor": "0",
@@ -573,7 +573,7 @@ $scope.studentActivity =
 {
     "chart": {
         "formatnumberscale": "0",
-        "caption": "Most Popular Activities",
+        "caption": "Most Popular Activity",
         "showborder": "0"
 
     },
@@ -647,4 +647,201 @@ $scope.updateStudent = function(studentName) {
 console.log($scope.individualStudentSkillsSummary.dataset[0].data[0].value);
 
   
-});
+})
+
+
+.controller("contentCharts", function ($scope) {
+    
+    $scope.currentUnit = "Unit 1";
+    $scope.currentLesson = "Lesson A";
+    
+    $scope.studentTrafficLightData = 
+    
+    {
+    "chart": {
+        "caption": "Unit 1 Content Performance",
+        "subcaption": "",
+        "numbersuffix": "%",
+        "startingangle": "310",
+        "decimals": "0",
+        "defaultcenterlabel": "Student Performance",
+        "centerlabel": "Unit 1 performance",
+        "theme": "fint",
+        "palettecolors": "#5cb85c,#f05b4f,#f0ad4e"
+    },
+    "data": [
+        {
+            "label": "On Track",
+            "value": "60"
+        },
+        {
+            "label": "Didn't Pass",
+            "value": "30"
+        },
+        {
+            "label": "Need Practice",
+            "value": "10"
+        },
+
+    ]
+};
+  
+  $scope.contentItemsData = 
+  
+  {
+    "chart": {
+        "caption": "Unit 1 Content Breakdown",
+        "subcaption": "",
+        "xAxisName": "Objectives",
+        "yAxisName": "Students",
+        "numberSuffix": " ",
+        "halfErrorBar": "0",
+        "paletteColors": "#d9534f,#f0ad4e,#5cb85c",
+        "showValues": "0",
+        "errorBarColor": "666666",
+        "bgColor": "#ffffff",
+        "showBorder": "0",
+        "showCanvasBorder": "0",
+        "usePlotGradientColor": "0",
+        "showXAxisLine": "1",
+        "axisLineAlpha": "25",
+        "legendBorderAlpha": "0",
+        "legendShadow": "0",
+        "legendBgAlpha": "0",
+        "showShadow": "0",
+        "showAlternateHgridColor": "0",
+        "showHoverEffect": "1"
+    },
+    "categories": [
+        {
+            "category": [
+                {
+                    "label": "G1"
+                },
+                {
+                    "label": "L1"
+                },
+                {
+                    "label": "R1"
+                },
+                {
+                    "label": "W1"
+                },
+                {
+                    "label": "S1"
+                },
+                {
+                    "label": "L2"
+                },
+                {
+                    "label": "R2"
+                }
+
+            ]
+        }
+    ],
+    "dataset": [
+        {
+            "seriesname": "Didn't Pass",
+            "data": [
+                {
+                    "value": "3",
+                    //"errorvalue": "2"
+                },
+                {
+                    "value": "7",
+                    //"errorvalue": "0.5"
+                },
+                {
+                    "value": "7",
+                    //"errorvalue": "1"
+                },
+                {
+                    "value": "2",
+                    //"errorvalue": "1.8"
+                },
+                {
+                    "value": "4",
+                    //"errorvalue": "1.2"
+                },
+                                {
+                    "value": "10",
+                    //"errorvalue": "1.8"
+                },
+                                {
+                    "value": "11",
+                    //"errorvalue": "1.8"
+                }
+            ]
+        },
+        {
+            "seriesname": "Need Practice",
+            "data": [
+                {
+                    "value": "2",
+                    //"errorvalue": "1"
+                },
+                {
+                    "value": "3",
+                    //"errorvalue": "0.5"
+                },
+                {
+                    "value": "3",
+                    //"errorvalue": "1"
+                },
+                {
+                    "value": "4",
+                    //"errorvalue": "0.8"
+                },
+                 {
+                    "value": "3",
+                    //"errorvalue": "1.8"
+                },
+                {
+                    "value": "3",
+                    //"errorvalue": "1"
+                },
+                                {
+                    "value": "2",
+                    //"errorvalue": "1.8"
+                }
+            ]
+        },
+        {
+            "seriesname": "On Track",
+            "data": [
+                {
+                    "value": "10",
+                    //"errorvalue": "2"
+                },
+                {
+                    "value": "5",
+                    //"errorvalue": "0.7"
+                },
+                {
+                    "value": "5",
+                    //"errorvalue": "1"
+                },
+                {
+                    "value": "9",
+                    //"errorvalue": "1.8"
+                },
+                {
+                    "value": "8",
+                    //"errorvalue": "1.2"
+                },
+                                {
+                    "value": "2",
+                    //"errorvalue": "1.8"
+                },
+                                {
+                    "value": "2",
+                    //"errorvalue": "1.8"
+                }
+            ]
+        }
+    ]
+};
+    
+})
+;

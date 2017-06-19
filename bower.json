@@ -12,7 +12,7 @@
     "fusioncharts",
     "dashboard"
   ],
-  "homepage": "",
+  "homepage": "https://github.com/tbuckham/ELT_dash_app",
   "private": true,
   "ignore": [
     "**/.*",

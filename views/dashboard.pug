@@ -87,7 +87,7 @@ html(ng-app='dashboard')
       .row.content
         .col-sm-12
          .row
-          .col-sm-2.col-xs-12
+          .col-sm-4.col-md-2.col-xs-12
            .well
             p Students view of own data
             a.thumbnail
@@ -100,7 +100,7 @@ html(ng-app='dashboard')
             div % of items completed > 50% 
 
 
-          .col-sm-5.col-xs-12(ng-controller='currentProgress')
+          .col-sm-8.col-md-5.col-xs-12(ng-controller='currentProgress')
              .panel.panel-tabs.panel-info
               .panel-heading
                ul.nav.nav-tabs
@@ -117,9 +117,9 @@ html(ng-app='dashboard')
                 #progressSnapshot.tab-pane.fade.in.active
                  .well
                   .row
-                   .col-sm-9
+                   .col-xs-12.col-lg-9
                     div.ct-chartProgress.ct-golden-section
-                   .col-sm-3 
+                   .col-xs-12.col-lg-3 
                        div
                         p
                         p
@@ -151,31 +151,31 @@ html(ng-app='dashboard')
 
 
 
-          .col-sm-5.col-xs-12
-           .well(ng-controller='currentSkillController')
+          .col-md-5.col-xs-12.well(ng-controller='currentSkillController')
+
             h4 Current Goal  
              i.fa.fa-star(style='font-size:24px;color:#449d44')
             p - {{currentSkill['content-name']}}
             p 
             row
-             .col-sm-1
+             .col-xs-2.col-sm-1
               p
               div
                span.fa.fa-mortar-board
-             .col-sm-5  
+             .col-xs-10.col-sm-5  
               p Current Best Score:
-             .col-sm-6
+             .col-xs-12.col-sm-6
               p
                div.progress
                 div.progress-bar(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: {{currentSkill['calc-percentage-score']}}%;")
                  span {{currentSkill['calc-percentage-score']}}%
             row
-             .col-sm-1
+             .col-xs-2.col-sm-1
               div
                span.fa.fa-history
-             .col-sm-5  
+             .col-xs-10.col-sm-5
               p Last Score
-             .col-sm-6
+             .col-xs-12.col-sm-6
               div.progress
                div.progress-bar(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: {{currentSkill.attempts['1']['score']}}%;")
                 span {{currentSkill['calc-percentage-score']}}%
@@ -192,33 +192,34 @@ html(ng-app='dashboard')
              .col-xs-1
               div
                span.fa.fa-hourglass-2  
-             .col-xs-5  
+             .col-xs-5 
               p Time spent
              .col-xs-6
               p {{currentSkill['total-time']}}  
               
             row
-             .col-xs-1
+             .col-xs-2.col-sm-1
               div
                span.fa.fa-calendar
-             .col-xs-5
+             .col-xs-10.col-sm-5
               p Last attempt:
-             .col-xs-6
-             p {{currentSkill.attempts['1']['last-access'] * 1000 | date:'medium'}}
+             .col-xs-12.col-sm-6
+              p {{currentSkill.attempts['1']['last-access'] * 1000 | date:'medium'}}
 
             row
-              .col-xs-1
+              .col-xs-2.col-sm-1
                div
                 span.fa.fa-eye
-              .col-xs-5
+              .col-xs-10.col-sm-5
                p View other goals
-              .col-xs-6
+              .col-xs-12.col-sm-6
                p
                 select(ng-model='selectedGoal', ng-options="x as x['content-name'] for x in contentData", style="width: 100%")
-            button(type='button').btn.btn-success Update
+                
+              button(type='button').btn.btn-success Update
 
          .row
-           .col-sm-7.col-xs-12(ng-controller='student_unit_avgscore_chart')
+           .col-lg-7.col-xs-12(ng-controller='student_unit_avgscore_chart')
             .panel.panel-tabs.panel-info
              .panel-heading
               ul.nav.nav-tabs
@@ -238,7 +239,7 @@ html(ng-app='dashboard')
                 
                     //ct-font-size
 
-           .col-sm-5.col-xs-12
+           .col-lg-5.col-xs-12
             .panel.panel-tabs.panel-info
              .panel-heading
               ul.nav.nav-tabs

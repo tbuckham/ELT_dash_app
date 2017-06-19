@@ -1,9 +1,12 @@
 {
-  "name": "CLMS-Reporting",
-  "version": "0.0.0",
+  "name": "elt-responsive-dash",
+  "version": "0.0.1",
   "description": "A reporting app based on the CLMS API.",
   "main": "server.js",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbuckham/ELT_dash_app.git"
+  },
   "author": "Oliver McPhee <o.mcphee@gmail.com>",
   "dependencies": {
     "async": "^0.2.10",
@@ -13,5 +16,18 @@
     "express-session": "^1.14.0",
     "pug": "^2.0.0-beta4",
     "request": "^2.74.0"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "data",
+    "responsive"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tbuckham/ELT_dash_app/issues"
+  },
+  "homepage": "https://github.com/tbuckham/ELT_dash_app#readme"
 }
